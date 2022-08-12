@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.K3002</groupId>
-	<artifactId>PrimerParcialDDS</artifactId>
+	<artifactId>ActividadPrimerParcialConSpring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ActividadPrimerParcialConSpring</name>
 	<description>Actividad Primer Parcial Con Spring</description>
@@ -59,6 +59,35 @@
 			<artifactId>cxf-rt-rs-client</artifactId>
 			<version>3.4.3</version>
 		</dependency>
+
+		<!--Llamadas HTTP-->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-client</artifactId>
+			<version>3.4.3</version>
+		</dependency>
+
+		<!--Serializacion JSON-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+
+		<!--Database-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.24</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.2.2</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
