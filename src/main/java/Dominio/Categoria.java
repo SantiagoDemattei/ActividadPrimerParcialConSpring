@@ -61,10 +61,10 @@ public abstract class Categoria {
         }
     }
     public static void cambiarAPremium (Usuario user) throws Exception{
-        Integer id_viejo = user.getCategoria().getId();
-        user.setCategoria(new PremiumAdapter());
-        user.getCategoria().setId(id_viejo);
-        CRUDCategoria.actualizarCategoria(user.getCategoria());
+        Categoria vieja = user.getCategoria();
+        Categoria nueva = new PremiumAdapter();
+        user.setCategoria(nueva);
+        CRUDCategoria.actualizarCategoriaAPremium(vieja, nueva);
     }
 
     public Categoria(String nombre, Integer cantMax) {
