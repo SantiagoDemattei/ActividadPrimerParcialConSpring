@@ -43,13 +43,13 @@ public class RepoVuelosNuevo {
                         vuelosNuevos.remove(vuelo);
                     }
                     else{
-                        String mensaje = "La temperatura actual es de " + temp + " grados Celsius y se encuentra dentro del rango permitido (0 a 30 grados Celsius). DESPEGUE ACEPTADO\n";
+                        String mensaje = "El aeropuerto de origen del vuelo numero " + vuelo.getFlight().getFlight_number()  + " es: " + vuelo.getDeparture().getDeparture_airport() + " y la temperatura actual es de " + temp + " grados Celsius. DESPEGUE ACEPTADO (La temperatura se encuentra dentro del rango (0 a 30 grados Celsius)\n";
                         UserService.mostrarMensajeConsulta(mensaje);
                     }
                     Thread.sleep(500);
                 }
                 else{
-                    String mensaje = "El vuelo numero " + vuelo.getFlight().getFlight_number() + " no está apto para despegar. No se puede controlar la temperatura\n";
+                    String mensaje = "El vuelo numero " + vuelo.getFlight().getFlight_number() + " no esta apto para despegar. No se puede controlar la temperatura\n";
                     UserService.mostrarMensajeDeError(mensaje);
                 }
             }

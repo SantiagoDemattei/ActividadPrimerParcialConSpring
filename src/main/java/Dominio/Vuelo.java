@@ -43,6 +43,7 @@ public class Vuelo implements Cloneable {
         try {
             vuelo = (Vuelo) clone();
             vuelo.setEstado(new NoAptoParaDespegar());
+            vuelo.getEstado().setVuelo(vuelo);
             vuelo.setComida(null);
             vuelo.setTanque(0);
         } catch (CloneNotSupportedException e){

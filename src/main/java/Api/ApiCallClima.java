@@ -28,7 +28,7 @@ public class ApiCallClima {
 
         String responseBody = response.readEntity(String.class); // json entero
         JsonNode jsonNode = mapper.readTree(responseBody); // lo convertimos a jsonNode
-        System.out.println("response = " + responseBody);
+        //System.out.println("response = " + responseBody);
         Clima clima = new Clima(jsonNode); // deserializamos el jsonNode y creamos un objeto clima
         Float temperatura;
         jsonNode = mapper.readTree(clima.getMain());

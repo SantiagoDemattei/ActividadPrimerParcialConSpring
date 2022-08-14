@@ -15,7 +15,6 @@ public class CRUDCategoria {
             se.beginTransaction();
             se.update(c);
             se.getTransaction().commit();
-            UserService.mostrarMensajeConsulta("Registro actualizado correctamente en DB");
         } catch (Exception e) {
             UserService.mostrarMensajeDeError("Error al actualizar el registro de categoria en DB");
         } finally {

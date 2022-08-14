@@ -275,14 +275,18 @@ public class UserService {
             System.out.println("Seleccione el ID del vuelo que desea usar como plantilla: ");
             Integer indice = sc5.nextInt();
             sc5.nextLine();
-            Vuelo vuelo = vuelos.get(indice);
-            System.out.println("Seleccione el numero del vuelo nuevo: ");
-            String numero = sc5.nextLine();
-            System.out.println("Seleccione la puerta de embarque del vuelo nuevo: ");
-            String puerta = sc5.nextLine();
-            System.out.println();
-            user.setPrototipo(vuelo);
-            user.setearDatosVueloClonado(numero, puerta);
+            try {
+                Vuelo vuelo = vuelos.get(indice);
+                System.out.println("Seleccione el numero del vuelo nuevo: ");
+                String numero = sc5.nextLine();
+                System.out.println("Seleccione la puerta de embarque del vuelo nuevo: ");
+                String puerta = sc5.nextLine();
+                System.out.println();
+                user.setPrototipo(vuelo);
+                user.setearDatosVueloClonado(numero, puerta);
+            } catch (Exception e) {
+                UserService.mostrarMensajeDeError("\nId incorrecto\n");
+            }
         }
 
     }
@@ -480,8 +484,12 @@ public class UserService {
             Integer i = sc.nextInt();
             RepoVuelosNuevo repo = RepoVuelosNuevo.getInstance();
             List<Vuelo> vuelos = repo.getVuelosNuevos();
-            Vuelo vuelo = vuelos.get(i);
-            vuelo.cargarCombustible();
+            try {
+                Vuelo vuelo = vuelos.get(i);
+                vuelo.cargarCombustible();
+            } catch (Exception e) {
+                mostrarMensajeDeError("Id incorrecto");
+            }
         }
     }
 }
