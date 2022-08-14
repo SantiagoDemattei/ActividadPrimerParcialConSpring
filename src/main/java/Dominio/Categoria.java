@@ -1,13 +1,30 @@
 package Dominio;
 
-import Database.UsuarioDb;
+import Database.CRUDCategoria;
+
 import java.util.List;
 import java.util.Scanner;
+import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="Nombre", discriminatorType=DiscriminatorType.STRING)
+@Table(name="categoria")
 public abstract class Categoria {
-    Integer cantMax;
-    String nombre;
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="Categoria_id")
     Integer id;
+
+    @Column(name="Nombre", insertable = false, updatable = false)
+    String nombre;
+
+    @Column(name="CantMax")
+    Integer cantMax;
+
 
     public void consultarVueloExistente(Usuario user) throws Exception{
 
@@ -48,6 +65,23 @@ public abstract class Categoria {
         user.setCategoria(new PremiumAdapter());
         user.getCategoria().setId(id_viejo);
         UsuarioDb.actualizarCategoria(user.getCategoria());
+    }
+
+    public Categoria(String nombre, Integer cantMax) {
+        this.nombre = nombre;
+        this.cantMax = cantMax;
+    }
+
+    public Categoria() {
+    }
+
+    @Override
+    public String toString() {
+        return "Categoria{" +
+                "id=" + id +
+                ", cantMax=" + cantMax +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 
     public String getNombre() {

@@ -59,7 +59,21 @@ public class Usuario {
         this.mail = m;
         this.password = p;
     }
+    public Usuario() {
+    }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", categoria=" + categoria +
+                ", pagaMembresia=" + pagaMembresia +
+                '}';
+    }
 
     //METODOS
     public void setearDatosVueloClonado(String numVuelo, String puertaEmbarque) throws Exception{

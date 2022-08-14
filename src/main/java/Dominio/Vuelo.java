@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import Carga.*;
 import java.util.Locale;
 
-public class Vuelo {
+public class Vuelo implements Cloneable {
     private String flight_date;
     private String flight_status;
     Departure departure;

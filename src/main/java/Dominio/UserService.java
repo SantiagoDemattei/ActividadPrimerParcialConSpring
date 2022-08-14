@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import Consulta.ConsultarPorAeropuertoDestino;
-import Database.UsuarioDb;
-
+import Database.CRUDUsuario;
+import Database.Encriptacion;
 
 public class UserService {
     public static final String ANSI_RED = "\u001B[31m";
@@ -363,9 +363,10 @@ public class UserService {
         if(vuelos.size() == 0){
             UserService.mostrarMensajeDeError("No hay vuelos cargados en el sistema");
             System.out.println();
-            return;
+            return false;
         }
         mostrarListadoVuelos(vuelos);
+        return true;
     }
 
     public static void clearScreen() {
@@ -476,13 +477,14 @@ public class UserService {
     }
 
     public static void llenarTanque(){
-        mostrarVuelosCargados();
-        mostrarMensajeConsulta("Seleccione el id del vuelo al que desea cargarle el tanque");
-        Scanner sc = new Scanner(System.in);
-        Integer i = sc.nextInt();
-        RepoVuelosNuevo repo = RepoVuelosNuevo.getInstance();
-        List<Vuelo> vuelos = repo.getVuelosNuevos();
-        Vuelo vuelo = vuelos.get(i);
-        vuelo.cargarCombustible();
+        if(mostrarVuelosCargados()) {
+            mostrarMensajeConsulta("Seleccione el id del vuelo al que desea cargarle el tanque");
+            Scanner sc = new Scanner(System.in);
+            Integer i = sc.nextInt();
+            RepoVuelosNuevo repo = RepoVuelosNuevo.getInstance();
+            List<Vuelo> vuelos = repo.getVuelosNuevos();
+            Vuelo vuelo = vuelos.get(i);
+            vuelo.cargarCombustible();
+        }
     }
 }
