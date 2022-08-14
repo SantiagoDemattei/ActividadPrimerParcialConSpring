@@ -1,8 +1,11 @@
 package Dominio;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
+@Entity
 public class PremiumAdapter extends Categoria{
+    @Transient
     private Premium catePremium = new Premium();
 
     public PremiumAdapter() {

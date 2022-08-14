@@ -1,11 +1,8 @@
 package Dominio;
 
-import Database.UsuarioDb;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import javax.persistence.*;
 
+@Entity
 public class Estandar extends Categoria{
     public Estandar() {
         super();

@@ -28,12 +28,13 @@ public class UserService {
             mostrarMensajeDeError("\nEl email no puede estar vacio\n");
             return registrarUser();
         }
-        if(buscarMailEnDb(mail)){
+        if(CRUDUsuario.buscarUsuarioPorMail(mail) != null){
             mostrarMensajeDeError("\nEl email ya existe, intente con otro");
             return registrarUser();
         }
         System.out.println("\nIngrese contrasena: ");
         String pass = console.nextLine();
+        pass = Encriptacion.encriptacion(pass);
 
         Usuario user = new Usuario(mail, pass);
 
@@ -76,19 +77,15 @@ public class UserService {
     }
 
     public static void registrarUsuario(Usuario user) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        UsuarioDb.registrarUsuario(user);
+        CRUDUsuario.insertarUsuario(user);
     }
 
-    public static Boolean buscarMailEnDb(String mail) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        Usuario user = UsuarioDb.buscarEnDb(mail);
-        return user != null;
-    }
     public static Usuario buscarLoginEnDb(String mail, String pass) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-        Usuario user = UsuarioDb.buscarEnDb(mail);
+        Usuario user = CRUDUsuario.buscarUsuarioPorMail(mail);
         if(user == null){
             mostrarMensajeDeError("\nNo se ha encontrado el email ingresado\n");
         }else{
-            if(UsuarioDb.coincideContrasenia(pass, user.getPassword())){
+            if(CRUDUsuario.coincideContrasenia(pass, Encriptacion.desencriptacion(user.getPassword()))){
                 System.out.println();
                 UserService.clearScreen();
                 UserService.mostrarMensajeConsulta("Bienvenido/a " + user.getNombre());
@@ -357,7 +354,7 @@ public class UserService {
         }
     }
 
-    public static void mostrarVuelosCargados(){
+    public static boolean mostrarVuelosCargados(){
         RepoVuelosNuevo repo = RepoVuelosNuevo.getInstance();
         List<Vuelo> vuelos = repo.getVuelosNuevos();
         if(vuelos.size() == 0){

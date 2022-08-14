@@ -3,22 +3,47 @@ package Dominio;
 import Carga.RepoVuelosNuevo;
 import Consulta.Busqueda;
 import Consulta.Consultar;
+import Database.CRUDUsuario;
 import Database.UsuarioDb;
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
+import javax.persistence.*;
+
+import javax.persistence.Entity;
 import java.util.*;
 
+@Entity
+@Table(name="usuario")
 public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="Id")
     private Integer id;
+
+    @Column(name="Nombre")
     private String nombre;
+
+    @Column(name="Apellido")
     private String apellido;
+
+    @Column(name="Mail")
     private String mail;
     //private List<Vuelo> vuelosFiltrados;
-    private Busqueda busqueda;
-    private Vuelo prototipo;
+
+    @Column(name="Contraseña")
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    //@PrimaryKeyJoinColumn
+    @JoinColumn(name="Categoria")
     private Categoria categoria;
+
+    @Column(name="PagaMembresia")
     private Boolean pagaMembresia;
 
+    @Transient
+    private Busqueda busqueda;
+    @Transient
+    private Vuelo prototipo;
 
     //SETTERS
     public void setNombre(String nombre) {this.nombre = nombre;}
@@ -112,7 +137,7 @@ public class Usuario {
         }
         else {
             setPagaMembresia(true);
-            UsuarioDb.actualizarUsuarioEnDb(this);
+            CRUDUsuario.actualizarUsuario(this);
             UserService.mostrarMensajeConsulta("El pago se ha efectuado con exito!! \n");
             System.out.println();
         }

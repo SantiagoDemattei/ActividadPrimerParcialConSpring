@@ -1,10 +1,9 @@
 package Dominio;
 
-import Database.UsuarioDb;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import javax.persistence.Entity;
 
+
+@Entity
 public class Intermedio extends Categoria{
     public Intermedio() {
         super();

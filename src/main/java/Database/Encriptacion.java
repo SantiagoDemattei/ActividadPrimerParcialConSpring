@@ -4,7 +4,7 @@ import java.util.Base64;
 
 public class Encriptacion {
 
-    public String encriptacion(String pass){
+    public static String encriptacion(String pass){
         try{
             return Base64.getEncoder().encodeToString(pass.getBytes());
         }
@@ -14,7 +14,7 @@ public class Encriptacion {
         }
     }
 
-    public String desencriptacion(String passEncriptada){
+    public static String desencriptacion(String passEncriptada){
         try{
             byte[] bytes = Base64.getDecoder().decode(passEncriptada);
             return new String(bytes);

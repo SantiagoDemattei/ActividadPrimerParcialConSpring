@@ -39,7 +39,7 @@ public abstract class Categoria {
                 UserService.mostrarListadoVuelos(vuelos);
             }
             cantMax--;
-            UsuarioDb.actualizarCategoria(user.getCategoria());
+            CRUDCategoria.actualizarCategoria(user.getCategoria());
 
         } else {
             UserService.mostrarMensajeDeError("\nSe supero la cantidad maxima de consultas posibles! Hagase premium para mas consultas\n");
@@ -64,7 +64,7 @@ public abstract class Categoria {
         Integer id_viejo = user.getCategoria().getId();
         user.setCategoria(new PremiumAdapter());
         user.getCategoria().setId(id_viejo);
-        UsuarioDb.actualizarCategoria(user.getCategoria());
+        CRUDCategoria.actualizarCategoria(user.getCategoria());
     }
 
     public Categoria(String nombre, Integer cantMax) {
