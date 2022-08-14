@@ -1,6 +1,7 @@
 package Dominio;
 
 import Database.CRUDCategoria;
+import Database.CRUDUsuario;
 
 import java.util.List;
 import java.util.Scanner;
@@ -63,7 +64,9 @@ public abstract class Categoria {
     public static void cambiarAPremium (Usuario user) throws Exception{
         Categoria vieja = user.getCategoria();
         Categoria nueva = new PremiumAdapter();
+        nueva.setId(vieja.getId());
         user.setCategoria(nueva);
+        //CRUDUsuario.actualizarUsuario(user);
         CRUDCategoria.actualizarCategoriaAPremium(vieja, nueva);
     }
 

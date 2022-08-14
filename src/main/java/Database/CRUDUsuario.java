@@ -54,7 +54,7 @@ public class CRUDUsuario {
             s.getTransaction().commit();
             UserService.mostrarMensajeConsulta("Registro actualizado correctamente en DB");
         } catch (Exception e) {
-            UserService.mostrarMensajeDeError("Error al actualizar el registro en DB");
+            UserService.mostrarMensajeDeError("Error al actualizar el registro del usuario en DB");
         } finally {
             s.close();
         }

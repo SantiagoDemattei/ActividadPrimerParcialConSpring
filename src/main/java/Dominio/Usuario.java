@@ -4,7 +4,7 @@ import Carga.RepoVuelosNuevo;
 import Consulta.Busqueda;
 import Consulta.Consultar;
 import Database.CRUDUsuario;
-import Database.UsuarioDb;
+
 import javax.persistence.*;
 
 import javax.persistence.Entity;
@@ -32,7 +32,7 @@ public class Usuario {
     @Column(name="Contraseña")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
     //@PrimaryKeyJoinColumn
     @JoinColumn(name="Categoria")
     private Categoria categoria;

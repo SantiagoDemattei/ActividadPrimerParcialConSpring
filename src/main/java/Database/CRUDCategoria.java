@@ -17,23 +17,38 @@ public class CRUDCategoria {
             se.getTransaction().commit();
             UserService.mostrarMensajeConsulta("Registro actualizado correctamente en DB");
         } catch (Exception e) {
-            UserService.mostrarMensajeDeError("Error al actualizar el registro en DB");
+            UserService.mostrarMensajeDeError("Error al actualizar el registro de categoria en DB");
         } finally {
             se.close();
         }
     }
 
     public static void actualizarCategoriaAPremium(Categoria catVieja, Categoria catNueva){
+        // entity manager
         SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Categoria.class).buildSessionFactory();
         Session se = sf.openSession();
         try {
             se.beginTransaction();
-            se.delete(catVieja);
-            se.save(catNueva);
+            se.createNativeQuery("UPDATE Categoria SET Nombre = :premium, cantMax = :cantMax WHERE Categoria_id = :id").setParameter("premium", "PremiumAdapter").setParameter("cantMax", null).setParameter("id", catVieja.getId()).executeUpdate();
             se.getTransaction().commit();
             UserService.mostrarMensajeConsulta("Registro actualizado correctamente en DB");
         } catch (Exception e) {
-            UserService.mostrarMensajeDeError("Error al actualizar el registro en DB");
+            UserService.mostrarMensajeDeError("Error al actualizar el registro de categoria en DB");
+        } finally {
+            se.close();
+        }
+    }
+
+    public static void borrarCategoria(Categoria cat){
+        SessionFactory sf = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(Categoria.class).buildSessionFactory();
+        Session se = sf.openSession();
+        try {
+            se.beginTransaction();
+            se.delete(cat);
+            se.getTransaction().commit();
+            UserService.mostrarMensajeConsulta("Registro borrado correctamente en DB");
+        } catch (Exception e) {
+            UserService.mostrarMensajeDeError("Error al borrar el registro de categoria en DB");
         } finally {
             se.close();
         }
