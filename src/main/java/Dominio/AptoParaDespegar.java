@@ -6,6 +6,6 @@ public class AptoParaDespegar extends Estado{
         UserService.mostrarMensajeConsulta(this.chequearEstado());
     }
     public String chequearEstado(){
-        return "Ya se esta listo para despegar";
+        return "El vuelo esta listo para pasar al control de temperatura";
     }
 }

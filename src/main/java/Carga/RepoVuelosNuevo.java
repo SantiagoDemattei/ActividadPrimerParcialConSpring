@@ -56,7 +56,7 @@ public class RepoVuelosNuevo {
                     Thread.sleep(500);
                 }
                 else{
-                    String mensaje = "El vuelo numero " + vuelo.getFlight().getFlight_number() + " no está apto para despegar. No se puede controlar la temperatura\n";
+                    String mensaje = "El vuelo numero " + vuelo.getFlight().getFlight_number() + " no esta apto para despegar. No se puede controlar la temperatura\n";
                     UserService.mostrarMensajeDeError(mensaje);
                 }
             }
