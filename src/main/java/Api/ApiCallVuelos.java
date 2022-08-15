@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 import java.util.*;
 
 public class ApiCallVuelos {
-    String TOKEN = "4029c94be707475a437fad1c1cac3719";
+    String TOKEN = "689fddc3b49ada1e36cbb82fd6d91506";
     String PARAMETRO = "flights";
 
     public List<Vuelo> consultarVuelos() throws Exception {

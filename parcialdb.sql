@@ -1,4 +1,4 @@
--- CREATE DATABASE parcialdb;
+CREATE DATABASE parcialdb;
 USE parcialdb;
 
 

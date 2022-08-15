@@ -59,7 +59,7 @@ public class CRUDVuelo {
         Session s = sf.openSession();
         try {
             s.beginTransaction();
-            s.delete(v); // TODO: VER SI BORRA LAS ENTRADAS DE LAS OTRAS TABLAS
+            s.delete(v);
             s.getTransaction().commit();
         } catch (Exception e) {
             UserService.mostrarMensajeDeError(e.getStackTrace().toString());
