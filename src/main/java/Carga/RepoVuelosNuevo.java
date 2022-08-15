@@ -1,6 +1,7 @@
 package Carga;
 
 import Api.ApiCallClima;
+import Database.CRUDVuelo;
 import Dominio.*;
 import java.util.*;
 
@@ -21,26 +22,32 @@ public class RepoVuelosNuevo {
         }
     }
 
+    public void cargarRepo(){
+        vuelosNuevos = CRUDVuelo.obtenerVuelosDb();
+    }
+
     public void cargarVuelo(Vuelo v) throws Exception {
         vuelosNuevos.add(v);
+        CRUDVuelo.insertarVuelo(v);
     }
 
     public List<Vuelo> getVuelosNuevos() {return vuelosNuevos;}
 
     public static void controlarTemperaturaParaDespegue() throws Exception{
         if(vuelosNuevos.size() != 0) {
-            for (int i = 0; i < vuelosNuevos.size(); i++) {
-                Vuelo vuelo = vuelosNuevos.get(i);
-
+            Iterator<Vuelo> itr = vuelosNuevos.iterator();
+            while(itr.hasNext()){
+                Vuelo vuelo = itr.next();
                 if(vuelo.getEstado().getClass().getSimpleName().equals("AptoParaDespegar")){
                     String ciudadOrigen = vuelo.getCiudadOrigen();
                     ApiCallClima api = new ApiCallClima();
                     api.setParametro(ciudadOrigen);
                     Float temp = api.consultarClima();
                     if (!(temp > 0 && temp < 30)) {
-                        String mensaje = "El vuelo con destino al aeropuerto: " + vuelo.getArrival().getArrival_airport() + " queda suspendido por temperatura actual de: " + temp + " grados,  fuera del rango permitido (0 a 30 grados Celsius) para el despegue\n";
+                        String mensaje = "El vuelo numero " + vuelo.getFlight().getFlight_number() + " con aeropuerto de origen: " + vuelo.getDeparture().getDeparture_airport() + " queda suspendido por temperatura actual de: " + temp + " grados, fuera del rango permitido (0 a 30 grados Celsius) para el despegue\n";
                         UserService.mostrarMensajeDeError(mensaje);
-                        vuelosNuevos.remove(vuelo);
+                        itr.remove();
+                        CRUDVuelo.borrarVuelo(vuelo);
                     }
                     else{
                         String mensaje = "El aeropuerto de origen del vuelo numero " + vuelo.getFlight().getFlight_number()  + " es: " + vuelo.getDeparture().getDeparture_airport() + " y la temperatura actual es de " + temp + " grados Celsius. DESPEGUE ACEPTADO (La temperatura se encuentra dentro del rango (0 a 30 grados Celsius)\n";
@@ -49,7 +56,7 @@ public class RepoVuelosNuevo {
                     Thread.sleep(500);
                 }
                 else{
-                    String mensaje = "El vuelo numero " + vuelo.getFlight().getFlight_number() + " no esta apto para despegar. No se puede controlar la temperatura\n";
+                    String mensaje = "El vuelo numero " + vuelo.getFlight().getFlight_number() + " no está apto para despegar. No se puede controlar la temperatura\n";
                     UserService.mostrarMensajeDeError(mensaje);
                 }
             }

@@ -1,12 +1,21 @@
 package Dominio;
 
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
+import Carga.RepoVuelosNuevo;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        disableLogging();
         Integer option = -1;
         Scanner sc = new Scanner(System.in);
+
+        RepoVuelosNuevo repo = RepoVuelosNuevo.getInstance();
+        repo.cargarRepo();
 
         while (option != 0) {
 
@@ -63,6 +72,12 @@ public class Main {
                     break;
             }
         }
+    }
+
+    private static void disableLogging() {
+        LogManager logManager = LogManager.getLogManager();
+        Logger logger = logManager.getLogger("");
+        logger.setLevel(Level.OFF); //could be Level.OFF
     }
 
 }

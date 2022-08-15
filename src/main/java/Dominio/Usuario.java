@@ -123,6 +123,7 @@ public class Usuario {
         UserService.cargarDatosAircraft(sc4, vueloNuevo);
         Estado e = new NoAptoParaDespegar();
         vueloNuevo.setEstado(e);
+        vueloNuevo.setEstadoString("NoAptoParaDespegar");
         e.setVuelo(vueloNuevo);
         vueloNuevo.setTanque(0);
         vueloNuevo.setComida(null);

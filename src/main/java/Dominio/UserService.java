@@ -294,28 +294,28 @@ public class UserService {
     public static Integer mostrarMenuPremium(Usuario user, Scanner sc) throws Exception {
         Integer option = -1;
         mostrarMenuIntermedio(user, sc);
-        System.out.println(" 6. Pagar");
+        System.out.println("6. Pagar");
         option =  sc.nextInt();
         mostrarOpciones(user, option, true);
         return option;
     }
 
     public static void mostrarMenuEstandar(Usuario user, Scanner sc) throws Exception {
-        System.out.println("Ingresa un numero segun la operacion a realizar \n " +
-                "0. Salir\n " +
-                "1. Consultar vuelos \n " +
-                "2. Cargar nuevo vuelo \n " +
+        System.out.println("Ingresa un numero segun la operacion a realizar \n" +
+                "0. Salir\n" +
+                "1. Consultar vuelos \n" +
+                "2. Cargar nuevo vuelo \n" +
                 "3. Mostrar menus cargados en el sistema \n" +
                 "4. Cargar tanque del avion de un vuelo cargado");
     }
     public static void mostrarMenuIntermedio(Usuario user, Scanner sc) throws Exception {
-        System.out.println("Ingresa un numero segun la operacion a realizar \n " +
-                "0. Salir\n " +
-                "1. Consultar vuelos \n " +
+        System.out.println("Ingresa un numero segun la operacion a realizar \n" +
+                "0. Salir\n" +
+                "1. Consultar vuelos \n" +
                 "2. Cargar nuevo vuelo \n" +
                 "3. Mostrar menus cargados en el sistema \n" +
                 "4. Cargar tanque del avion de un vuelo cargado\n" +
-                "5. Controlar temperatura para el despegue de los vuelos cargados ");
+                "5. Controlar temperatura para el despegue de los vuelos cargados");
     }
 
     public static void mostrarOpciones(Usuario user, Integer option, Boolean esPremium) throws Exception {

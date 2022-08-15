@@ -3,27 +3,84 @@ package Dominio;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import Carga.*;
-import java.util.Locale;
+import javax.persistence.*;
+import java.lang.reflect.InvocationTargetException;
 
+
+@Entity
+@Table(name="vuelo")
 public class Vuelo implements Cloneable {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="Id")
+    Integer id;
+
+    @Column(name="Flight_date")
     private String flight_date;
+
+    @Column(name="Flight_status")
     private String flight_status;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="Departure")
     Departure departure;
+
+    @Transient
     JsonNode departureNode;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="Arrival")
     Arrival arrival;
+
+    @Transient
     JsonNode arrivalNode;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="Airline")
     Airline airline;
+
+    @Transient
     JsonNode airlineNode;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="Flight")
     Flight flight;
+
+    @Transient
     JsonNode flightNode;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
+    @JoinColumn(name="Aircraft")
     Aircraft aircraft;
+
+    @Transient
     JsonNode aircraftNode;
+
+    @Transient
     Live live;
+
+    @Transient
     JsonNode liveNode;
+
+    @Column(name="Tanque")
     private Integer tanque;
+
+    @Transient
     private Estado estado;
+
+    @Column(name="Estado")
+    private String estadoString;
+
+    @Column(name="Comida")
     private String comida;
 
+
+    @PostLoad
+    public void setearEstado() throws InstantiationException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, ClassNotFoundException {
+        Class<?> clazz = Class.forName("Dominio." + estadoString);
+        this.estado = (Estado) clazz.getDeclaredConstructor().newInstance();
+        this.estado.setVuelo(this);
+    }
 
     //CONSTRUCTOR VUELO
     public Vuelo(){
@@ -35,6 +92,7 @@ public class Vuelo implements Cloneable {
         this.live = new Live();
         this.tanque = 1000;
         this.estado = new AptoParaDespegar();
+        this.estadoString = "AptoParaDespegar";
         this.estado.setVuelo(this);
         this.comida = "Arroz con pollo";
     }
@@ -43,6 +101,7 @@ public class Vuelo implements Cloneable {
         try {
             vuelo = (Vuelo) clone();
             vuelo.setEstado(new NoAptoParaDespegar());
+            vuelo.setEstadoString("NoAptoParaDespegar");
             vuelo.getEstado().setVuelo(vuelo);
             vuelo.setComida(null);
             vuelo.setTanque(0);
@@ -63,6 +122,7 @@ public class Vuelo implements Cloneable {
     public Integer getTanque(){return tanque;}
     public Estado getEstado(){return estado;}
     public String getComida(){return comida;}
+    public String getEstadoString(){return estadoString;}
 
     //SETTERS
     public void setFlight_date(String f){this.flight_date = f;}
@@ -183,6 +243,7 @@ public class Vuelo implements Cloneable {
     public void setTanque(Integer valor){this.tanque = valor;}
     public void setEstado(Estado e){this.estado = e;}
     public void setComida(String com){this.comida = com;}
+    public void setEstadoString(String estado){this.estadoString = estado;}
 
     public void cargarTanque(Integer valor){
         if(this.tanque + valor <= 1000){

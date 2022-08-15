@@ -1,5 +1,7 @@
 package Dominio;
 
+import Database.CRUDVuelo;
+
 public class NoAptoParaDespegar extends Estado{
     public void cargarNafta(){
         this.vuelo.cargarTanque(300);
@@ -11,7 +13,9 @@ public class NoAptoParaDespegar extends Estado{
             Estado e = new AptoParaDespegar();
             this.vuelo.setEstado(e);
             e.setVuelo(this.vuelo);
+            this.vuelo.setEstadoString("AptoParaDespegar");
             this.vuelo.setComida("Arroz con pollo");
         }
+        CRUDVuelo.actualizarVuelo(this.vuelo);
     }
 }

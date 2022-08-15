@@ -1,18 +1,53 @@
 package Dominio;
 
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="Arrival")
 public class Arrival {
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="Id")
+    private Integer id;
+
+    @Column(name="Airport")
     private String arrival_airport;
+
+    @Column(name="Timezone")
     private String arrival_timezone;
+
+    @Column(name="Iata")
     private String arrival_iata;
+
+    @Column(name="Icao")
     private String arrival_iaco;
+
+    @Column(name="Terminal")
     private String arrival_terminal;
+
+    @Column(name="Gate")
     private String arrival_gate;
+
+    @Column(name="Baggage")
     private String arrival_baggage;
+
+    @Column(name="Delay")
     private String arrival_delay;
+
+    @Column(name="Scheduled")
     private String arrival_scheduled;
+
+    @Column(name="Estimated")
     private String arrival_estimated;
+
+    @Column(name="Actual")
     private String arrival_actual;
+
+    @Column(name="Estimated_runway")
     private String arrival_estimated_runway;
+
+    @Column(name="Actual_runway")
     private String arrival_actual_runway;
 
     public String getArrival_airport(){return arrival_airport;}

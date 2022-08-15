@@ -16,6 +16,7 @@ public class CRUDCategoria {
             se.update(c);
             se.getTransaction().commit();
         } catch (Exception e) {
+            UserService.mostrarMensajeDeError(e.getStackTrace().toString());
             UserService.mostrarMensajeDeError("Error al actualizar el registro de categoria en DB");
         } finally {
             se.close();
@@ -30,8 +31,8 @@ public class CRUDCategoria {
             se.beginTransaction();
             se.createNativeQuery("UPDATE Categoria SET Nombre = :premium, cantMax = :cantMax WHERE Categoria_id = :id").setParameter("premium", "PremiumAdapter").setParameter("cantMax", null).setParameter("id", catVieja.getId()).executeUpdate();
             se.getTransaction().commit();
-            UserService.mostrarMensajeConsulta("Registro actualizado correctamente en DB");
         } catch (Exception e) {
+            UserService.mostrarMensajeDeError(e.getStackTrace().toString());
             UserService.mostrarMensajeDeError("Error al actualizar el registro de categoria en DB");
         } finally {
             se.close();
@@ -45,8 +46,8 @@ public class CRUDCategoria {
             se.beginTransaction();
             se.delete(cat);
             se.getTransaction().commit();
-            UserService.mostrarMensajeConsulta("Registro borrado correctamente en DB");
         } catch (Exception e) {
+            UserService.mostrarMensajeDeError(e.getStackTrace().toString());
             UserService.mostrarMensajeDeError("Error al borrar el registro de categoria en DB");
         } finally {
             se.close();
