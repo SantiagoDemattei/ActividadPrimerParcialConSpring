@@ -305,7 +305,7 @@ public class UserService {
                 "0. Salir\n" +
                 "1. Consultar vuelos \n" +
                 "2. Cargar nuevo vuelo \n" +
-                "3. Mostrar menus cargados en el sistema \n" +
+                "3. Mostrar vuelos cargados en el sistema \n" +
                 "4. Cargar tanque del avion de un vuelo cargado");
     }
     public static void mostrarMenuIntermedio(Usuario user, Scanner sc) throws Exception {
