@@ -21,9 +21,7 @@ public class Busqueda {
         return estrategia.filtrar(this);
     }
 
-    public String getFecha() {
-        return fecha;
-    }
+    public String getFecha() {return fecha;}
 
     public String getAeropuertoDestino() {
         return aeropuerto;
